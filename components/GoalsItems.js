@@ -5,8 +5,13 @@ export default function GoalsItems(props) {
   function onDelete() {
     props.onDelete(props.id);
   }
+
   return (
-    <Pressable onPress={onDelete}>
+    <Pressable
+      onPress={onDelete}
+      android_ripple={{ color: "red" }}
+      style={({ pressed }) => [pressed && { opacity: 0.5 }]}
+    >
       <View
         style={{
           backgroundColor: "blue",

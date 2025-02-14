@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, Modal, Image } from "react-native";
 import React, { useState } from "react";
 
 export default function GoalsInput(props) {
@@ -13,34 +13,57 @@ export default function GoalsInput(props) {
       return alert("Please enter the Goals");
     }
     props.onAddGoals(textinput);
+
     setTextInput("");
   }
 
+  function Toggle() {
+    props.onToggle();
+  }
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        borderBottomColor: "#aaa",
-        borderBottomWidth: 4,
-        paddingBottom: 30,
-      }}
-    >
+    <Modal visible={props.visible} animationType="slide">
       <View
         style={{
-          width: "76%",
-          borderWidth: 3,
-          borderColor: "blue",
-          marginRight: 4,
+          flex: 1,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: 40,
+          backgroundColor: "#311b6b",
         }}
       >
-        <TextInput
-          value={textinput}
-          onChangeText={AddText}
-          placeholder="Enter the Goals..."
+        <Image
+          style={{ width: 140, height: 40 }}
+          source={require("../assets/splash-icon.png")}
         />
+        <View
+          style={{
+            width: "90%",
+            borderWidth: 3,
+            borderColor: "blue",
+            marginRight: 4,
+            borderRadius: 8,
+            marginTop: 20,
+            backgroundColor: "white",
+          }}
+        >
+          <TextInput
+            value={textinput}
+            onChangeText={AddText}
+            placeholder="Enter the Goals..."
+            style={{ padding: 12 }}
+          />
+        </View>
+
+        <View style={{ flexDirection: "row", gap: 5, margin: 10 }}>
+          <View>
+            <Button title="Add Goals" onPress={AddGoals} color="#3e04e4" />
+          </View>
+          <View>
+            <Button title="Cancel" onPress={Toggle} color="#f003e3" />
+          </View>
+        </View>
       </View>
-      <Button title="Add Goals" onPress={() => AddGoals()} />
-    </View>
+    </Modal>
   );
 }
